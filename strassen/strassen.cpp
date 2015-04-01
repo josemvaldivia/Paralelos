@@ -2,6 +2,7 @@
 #include <stdio.h>      
 #include <stdlib.h>    
 #include <time.h>  
+#include <math.h>
 using namespace std;
 
 template <typename T>
@@ -62,14 +63,21 @@ public:
 		}
 	}
 
+	Matrix Normalize(Matrix a)
+	{
+		int new_size=pow(2,ceil(log2(a.n)));
+		Matrix res (new_size,new_size);
+
+
+
+
+	}
 
 };
 
 template<typename T>
 Matrix<T> Strassen(Matrix<T> mat){
 	int division=mat.n/2;
-
-
 
 }
 
