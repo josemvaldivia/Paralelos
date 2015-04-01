@@ -65,8 +65,14 @@ public:
 
 	Matrix Normalize(Matrix a)
 	{
-		int new_size=pow(2,ceil(log2(a.n)));
-		Matrix res (new_size,new_size);
+		int new_size=ceil(log2(a.n));
+		Matrix res (new_size<<1,new_size<<1);
+		for (int x =0;x<res.n;x++){
+			for(int y=0;y<res.m;y++){
+				
+			}
+		}
+
 
 
 
