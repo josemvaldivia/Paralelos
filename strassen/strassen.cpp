@@ -96,21 +96,21 @@ public:
 		return res;
 	}
 
-	vector<Matrix<T*> > Separate ()
+	vector<Matrix<T> > Separate ()
 	{
-		vector<Matrix<T*> > result;
+		vector<Matrix<T> > result;
 		int u=n*m/4;
 		int size= ceil(sqrt(u));
 		
-		Matrix<T*> p1(size,size);
+		Matrix<T> p1(size,size);
 		for (int x=0;x<size;x++)
 		{
 			for (int y=0;y<size;y++)
 			{
-				p1.data[x][y]=&data[x][y];
+				p1.data[x][y]=data[x][y];
 			}
 		}
-		Matrix<T*> p2(size,size);
+		Matrix<T> p2(size,size);
 		int c1=0;
 		int c2=0;
 		for (int x=0;x<size;x++)
@@ -118,24 +118,24 @@ public:
 			c2=0;
 			for (int y=size;y<n;y++)
 			{	
-				p2.data[c1][c2]=&data[x][y];
+				p2.data[c1][c2]=data[x][y];
 				c2++;
 			}
 			c1++;
 		}
-		Matrix<T*> p3(size,size);
+		Matrix<T> p3(size,size);
 		c1=0;
 		for (int x=size;x<n;x++)
 		{
 			c2=0;
 			for (int y=0;y<size;y++)
 			{
-				p3.data[c1][c2]=&data[x][y];
+				p3.data[c1][c2]=data[x][y];
 				c2++;
 			}
 			c1++;
 		}
-		Matrix<T*> p4(size,size);
+		Matrix<T> p4(size,size);
 		 c1=0;
 		 
 		for (int x=size;x<n;x++)
@@ -143,7 +143,7 @@ public:
 			c2=0;
 			for (int y=size;y<n;y++)
 			{
-				p4.data[c1][c2]=&data[x][y];
+				p4.data[c1][c2]=data[x][y];
 				c2++;
 			}
 			c1++;
@@ -157,26 +157,31 @@ public:
 
 	}
 
-	Matrix<T> strassen (Matrix<T> a)
+	Matrix<T> strassen (Matrix<T> a,Matrix<T> b)
 	{
+		
+
 		int n=a.n;
 		Matrix<T> res (n,n);
-		vector<Matrix<T*> > partition_res=res.Separate();
+		vector<Matrix<T> > partition_res=res.Separate();
+		cout<<n<<endl;
 		if (n==1)
 		{
-			*(res.data[0][0])=((a.data[0][0])) * ((data[0][0]));
+			(res.data[0][0])=((a.data[0][0])) * ((b.data[0][0]));
 		}
-
+	
 		else
 		{
-			vector<Matrix<T*> > partition_a= a.Separate();
-			vector<Matrix<T*> > partition_self= Separate();
-			partition_res[0]=strassen(partition_a[0],partition_self[0])+strassen(partition_a[1],partition_self[2]);
-			partition_res[1]=strassen(partition_a[0],partition_self[1])+strassen(partition_a[1],partition_self[3]);
-			partition_res[2]=strassen(partition_a[2],partition_self[0])+strassen(partition_a[3],partition_self[2]);
-			partition_res[3]=strassen(partition_a[2],partition_self[1])+strassen(partition_a[3],partition_self[3]);
+			vector<Matrix<T> > partition_a= a.Separate();
+			vector<Matrix<T> > partition_b= b.Separate();
+			partition_res[0]=strassen(partition_a[0],partition_b[0])+strassen(partition_a[1],partition_b[2]);
+			partition_res[1]=strassen(partition_a[0],partition_b[1])+strassen(partition_a[1],partition_b[3]);
+			partition_res[2]=strassen(partition_a[2],partition_b[0])+strassen(partition_a[3],partition_b[2]);
+			partition_res[3]=strassen(partition_a[2],partition_b[1])+strassen(partition_a[3],partition_b[3]);
 
 		}
+
+
 		return res;
 
 	}
@@ -185,11 +190,6 @@ public:
 
 };
 
-template<typename T>
-Matrix<T> Strassen(Matrix<T> mat){
-	int division=mat.n/2;
-
-}
 
 int main()
 {
@@ -198,11 +198,11 @@ int main()
 	Matrix<int> b(4,4);
 	a.FillWithRandom();
 	b.FillWithRandom();
-
+	
 	a.ShowMatrix();
-	a.strassen(b);
 	cout<<"\n\n\n\n";
 	b.ShowMatrix();
+	a.strassen(a,b);
 
 	
 	return 0;
