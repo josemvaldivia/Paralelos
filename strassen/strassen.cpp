@@ -164,7 +164,7 @@ public:
 		vector<Matrix<T*> > partition_res=res.Separate();
 		if (n==1)
 		{
-			*(res.data[0][0])=((a.data[0][0])) * ((data[0][0]));
+			res.data[0][0]=(a.data[0][0]) * ((data[0][0]));
 		}
 
 		else
