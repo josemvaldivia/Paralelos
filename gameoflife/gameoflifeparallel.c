@@ -234,7 +234,7 @@ int main ()
       m.data=NULL;
       if (my_rank != 0) {
           data=GameOfLifeFromTo(mat,local_from,local_to);
-         printSub(data,local_n,g_cols);
+         //printSub(data,local_n,g_cols);
          //MPI_Send(&data[0][0], local_n*mat.cols , MPI_INT, 0, 0,MPI_COMM_WORLD); 
          /* Create message */
          //printSub(data,local_n,mat.cols);
@@ -248,7 +248,7 @@ int main ()
         data=GameOfLifeFromTo(mat,local_from,local_to);  
         
         MPI_Gather(data[0],local_n*g_cols,MPI_INT,m.data[0],g_cols*g_rows,MPI_INT,0,MPI_COMM_WORLD);
-    	printSub(data,local_n,g_cols);	
+    	//printSub(data,local_n,g_cols);	
          /* Print my message */
          //printSub(data,local_n,mat.cols);
          //ShowMatrix(mat);
